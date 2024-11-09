@@ -3,7 +3,6 @@
   "python.analysis.importFormat": "absolute",
   "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
   "python.analysis.extraPaths": ["${workspaceFolder}/backend"],
-  // "python.autoComplete.extraPaths": ["${workspaceFolder}/backend"],
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnSave": true,
