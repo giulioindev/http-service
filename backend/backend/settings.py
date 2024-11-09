@@ -145,7 +145,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOWED_ORIGINS = ["http://localhost", f"http://{environment.frontend_host}:{environment.frontend_port}"]
+CORS_ALLOWED_ORIGINS = [f"{environment.frontend_host}", f"{environment.frontend_host}:{environment.frontend_port}"]
 
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],

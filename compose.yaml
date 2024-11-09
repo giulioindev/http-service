@@ -26,24 +26,23 @@ services:
       - ./backend/core:/app/core
     ports:
       - ${BACKEND_PORT}:${BACKEND_PORT}
-    # entrypoint: python manage.py migrate && python manage.py runserver 0.0.0.0:${BACKEND_PORT}
 
-  # frontend:
-  #   container_name: frontend
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   restart: always
-  #   depends_on:
-  #     database:
-  #       condition: service_started
-  #   environment:
-  #     - VITE_BACKEND_PORT=${BACKEND_PORT}
-  #   volumes:
-  #     - ./frontend/src:/app/src
-  #   ports:
-  #     - "${FRONTEND_PORT}:${FRONTEND_PORT}"
-  #   command: npm run dev -- --port ${FRONTEND_PORT} --host
+  frontend:
+    image: http-service-frontend:dev
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    depends_on:
+      backend:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - VITE_BACKEND_PORT=${BACKEND_PORT}
+    volumes:
+      - ./frontend/src:/app/src
+    ports:
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
 
   database:
     image: postgres:16-alpine
