@@ -1,0 +1,68 @@
+services:
+  backend:
+    image: http-service-backend:dev
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", '-H',"Accept: application/json","-f", "http://localhost:${BACKEND_PORT}/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-http_service_db}
+      - POSTGRES_HOST=database
+      - POSTGRES_USER=${POSTGRES_USER:-user}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
+    volumes:
+      - ./backend/backend:/app/backend
+      - ./backend/core:/app/core
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    # entrypoint: python manage.py migrate && python manage.py runserver 0.0.0.0:${BACKEND_PORT}
+
+  # frontend:
+  #   container_name: frontend
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   restart: always
+  #   depends_on:
+  #     database:
+  #       condition: service_started
+  #   environment:
+  #     - VITE_BACKEND_PORT=${BACKEND_PORT}
+  #   volumes:
+  #     - ./frontend/src:/app/src
+  #   ports:
+  #     - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+  #   command: npm run dev -- --port ${FRONTEND_PORT} --host
+
+  database:
+    image: postgres:16-alpine
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-http_service_db}
+      - POSTGRES_USER=${POSTGRES_USER:-user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER:-user} -d ${POSTGRES_DB:-http_service_db}'"]
+      interval: 2s
+      timeout: 3s
+      retries: 40
+    volumes:
+      - database-data:/var/lib/postgresql/data
+
+volumes:
+  database-data:
+    name: http-service-database-data

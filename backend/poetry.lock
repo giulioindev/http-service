@@ -337,6 +337,24 @@ files = [
 Django = ">=4.2"
 
 [[package]]
+name = "django-health-check"
+version = "3.18.3"
+description = "Run checks on services like databases, queue servers, celery processes, etc."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django_health_check-3.18.3-py2.py3-none-any.whl", hash = "sha256:f5f58762b80bdf7b12fad724761993d6e83540f97e2c95c42978f187e452fa07"},
+    {file = "django_health_check-3.18.3.tar.gz", hash = "sha256:18b75daca4551c69a43f804f9e41e23f5f5fb9efd06cf6a313b3d5031bb87bd0"},
+]
+
+[package.dependencies]
+django = ">=2.2"
+
+[package.extras]
+docs = ["sphinx"]
+test = ["boto3", "celery", "django-storages", "pytest", "pytest-cov", "pytest-django", "redis"]
+
+[[package]]
 name = "django-ipware"
 version = "7.0.1"
 description = "A Django application to retrieve user's IP address"
@@ -1582,4 +1600,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "b9a9f91e11ebcdc7e8afe22ea27828d0660930709bac1ef136439a7d03dd3216"
+content-hash = "f058d32f50602ed7eef1adcf2cee05073ff2ff9926b500793203d6d5bc5861c2"
