@@ -1,3 +1,3 @@
-from core.admin.request_info_admin import RequestInfoAdmin
+from core.admin.request_detail_admin import RequestDetailAdmin
 
-__all__ = ["RequestInfoAdmin"]
+__all__ = ["RequestDetailAdmin"]

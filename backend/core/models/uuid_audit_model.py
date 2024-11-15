@@ -3,7 +3,7 @@ from uuid import uuid4
 from django.db import models
 
 
-class UUIDAuditModel:
+class UUIDAuditModel(models.Model):
     """Abstract model having id as uuid4, creation and update datetimes."""
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)

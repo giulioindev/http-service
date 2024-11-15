@@ -38,6 +38,7 @@ services:
     env_file:
       - .env
     environment:
+      - VITE_BACKEND_HOST=${BACKEND_HOST}
       - VITE_BACKEND_PORT=${BACKEND_PORT}
     volumes:
       - ./frontend/src:/app/src

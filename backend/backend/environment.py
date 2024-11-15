@@ -7,7 +7,7 @@ from backend.constants import LogLevel
 class Environment(BaseSettings):
     """Parser class for the environment file."""
 
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(extra="ignore", env_file_encoding="utf-8")
 
     postgres_db: str = Field(description="Database name")
     postgres_user: str = Field(description="Database user name")
