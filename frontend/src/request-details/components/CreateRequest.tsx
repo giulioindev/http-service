@@ -63,7 +63,7 @@ const CreateRequest = () => {
       {axiosIsLoading ? (
         <Loader />
       ) : requestDetail ? (
-        <RequestDetailTable requestDetail={requestDetail} />
+        <RequestDetailTable requestDetail={requestDetail} disabled={false} />
       ) : null}
     </>
   );

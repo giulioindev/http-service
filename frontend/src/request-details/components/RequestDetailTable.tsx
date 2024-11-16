@@ -1,13 +1,21 @@
-import { Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import { parseUrl } from "../../shared/utils";
 import RequestDetail from "../interfaces/request-detail";
 
-type RequestDetailTableProps = { requestDetail: RequestDetail };
+type RequestDetailTableProps = {
+  requestDetail: RequestDetail;
+  disabled: boolean;
+};
 
-const RequestDetailTable = ({ requestDetail }: RequestDetailTableProps) => {
+const RequestDetailTable = ({
+  requestDetail,
+  disabled,
+}: RequestDetailTableProps) => {
   const { domain, scheme, path } = parseUrl(
     requestDetail.data.response.config!.url!
   );
+
   return (
     <>
       <Row className="justify-content-center">
@@ -56,12 +64,14 @@ const RequestDetailTable = ({ requestDetail }: RequestDetailTableProps) => {
           </Card>
         </Col>
       </Row>
-
-      {/* Share Section */}
-      <div className="text-center mt-4">
-        <h5 className="text-muted">SHARE</h5>
-        <p>{requestDetail.id}</p>
-      </div>
+      <LinkContainer to={`/${requestDetail.id}`}>
+        <div className="text-center mt-4">
+          <h5 className="text-muted">SHARE</h5>
+          <Button variant="light" className="sm" disabled={disabled}>
+            <p>{requestDetail.id}</p>
+          </Button>
+        </div>
+      </LinkContainer>
     </>
   );
 };

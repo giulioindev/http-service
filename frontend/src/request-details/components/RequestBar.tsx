@@ -43,7 +43,6 @@ const RequestBar = ({
             onChange={(event) => onRequestUrlChangeLocal(event.target.value)}
             className="flex-grow-1"
             disabled={disabled}
-            required
           />
           <Button
             variant="primary"

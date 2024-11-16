@@ -30,7 +30,7 @@ export const requestDetailsApi = createApi({
       }),
       getRequestDetail: build.query<RequestDetail, string>({
         query: (id) => ({
-          url: `/entries/${id}/`,
+          url: `/request-details/${id}/`,
           method: "GET",
         }),
         providesTags: (_result, _error, id) => [{ type: "RequestDetails", id }],
