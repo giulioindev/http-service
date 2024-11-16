@@ -18,15 +18,13 @@ export const requestDetailsApi = createApi({
         query: () => ({ url: "/request-details/", method: "GET" }),
         providesTags: (result) =>
           result
-            ? // successful query
-              [
+            ? [
                 ...result.map(
                   ({ id }) => ({ type: "RequestDetails", id } as const)
                 ),
                 { type: "RequestDetails", id: "LIST" },
               ]
-            : // an error occurred, refetch this query when `{ type: 'Posts', id: 'LIST' }` is invalidated
-              [{ type: "RequestDetails", id: "LIST" }],
+            : [{ type: "RequestDetails", id: "LIST" }],
       }),
       getRequestDetail: build.query<RequestDetail, string>({
         query: (id) => ({
