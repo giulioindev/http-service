@@ -9,7 +9,7 @@ export const requestDetailsApi = createApi({
   baseQuery: axiosBaseQuery({
     baseUrl: `${import.meta.env.VITE_BACKEND_HOST}:${
       import.meta.env.VITE_BACKEND_PORT
-    }/api`,
+    }/api/v1`,
   }),
   tagTypes: ["RequestDetails"],
   endpoints: (build) => {
@@ -36,11 +36,11 @@ export const requestDetailsApi = createApi({
         providesTags: (_result, _error, id) => [{ type: "RequestDetails", id }],
       }),
       createRequestDetail: build.mutation<RequestDetail, CreateRequestDetail>({
-        query: (data) => {
+        query: (newRequestDetail) => {
           return {
             url: "/request-details/",
             method: "POST",
-            data: data,
+            data: newRequestDetail,
           };
         },
         invalidatesTags: [{ type: "RequestDetails", id: "LIST" }],
