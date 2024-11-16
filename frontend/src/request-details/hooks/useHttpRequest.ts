@@ -4,7 +4,7 @@ import {
   ERROR_MESSAGE,
   NO_RESPONSE_MESSAGE,
   SUCCESS_MESSAGE,
-} from "../../shared/components/constants";
+} from "../../shared/constants";
 
 export const useHttpRequest = () => {
   const [response, setResponse] = useState<AxiosResponse | AxiosError | null>(
