@@ -13,4 +13,4 @@ class RequestDetail(UUIDAuditModel):
 
     class Meta:
         db_table = "request_details"
-        verbose_name_plural = "request_details"
+        verbose_name_plural = "request details"
