@@ -1,12 +1,18 @@
 import { Link, useParams } from "react-router-dom";
 import Loader from "../../shared/components/Loader";
+import Message from "../../shared/components/Message";
 import { useGetRequestDetailQuery } from "../request-detail.service";
 import RequestBar from "./RequestBar";
 import RequestDetailTable from "./RequestDetailTable";
 
 const ShareRequestDetail = () => {
   const { id } = useParams();
-  const { data: requestDetail, isLoading } = useGetRequestDetailQuery(`${id!}`);
+  const {
+    data: requestDetail,
+    isLoading,
+    isError,
+  } = useGetRequestDetailQuery(`${id!}`);
+
   const handleNothing = () => {};
 
   return (
@@ -14,6 +20,10 @@ const ShareRequestDetail = () => {
       <Link to="/">Go Back</Link>
       {isLoading ? (
         <Loader />
+      ) : isError ? (
+        <Message variant="warning" dismissible={true}>
+          {"Something went wrong while loading the request."}
+        </Message>
       ) : requestDetail ? (
         <>
           <RequestBar
