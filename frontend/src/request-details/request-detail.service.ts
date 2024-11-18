@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import axiosBaseQuery from "../services/base-query";
+import axiosBaseQuery from "../shared/services/base-query";
 import CreateRequestDetail from "./interfaces/create-request-detail";
 import RequestDetail from "./interfaces/request-detail";
 import UpdateRequestDetail from "./interfaces/update-request-detail";

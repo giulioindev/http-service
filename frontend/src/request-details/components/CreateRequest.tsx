@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Loader from "../../shared/components/Loader";
+import Message from "../../shared/components/Message";
 import { useHttpRequest } from "../hooks/useHttpRequest";
 import { useCreateRequestDetailMutation } from "../request-detail.service";
 import RequestBar from "./RequestBar";
@@ -12,11 +13,10 @@ const CreateRequest = () => {
     isLoading: axiosIsLoading,
     response,
     status,
-    error,
     message,
     sendHttpRequest,
   } = useHttpRequest();
-  const [createRequestDetail, { data: requestDetail }] =
+  const [createRequestDetail, { data: requestDetail, isLoading, isError }] =
     useCreateRequestDetailMutation();
 
   const handleOnClick = () => {
@@ -44,7 +44,7 @@ const CreateRequest = () => {
         },
       });
     }
-  }, [response, createRequestDetail, error]);
+  }, [response, createRequestDetail]);
 
   return (
     <>
@@ -60,8 +60,12 @@ const CreateRequest = () => {
         onButtonClick={handleOnClick}
         disabled={false}
       />
-      {axiosIsLoading ? (
+      {axiosIsLoading || isLoading ? (
         <Loader />
+      ) : isError ? (
+        <Message variant="warning" dismissible={true}>
+          {"Something went wrong while saving the request."}
+        </Message>
       ) : requestDetail ? (
         <RequestDetailTable requestDetail={requestDetail} disabled={false} />
       ) : null}
